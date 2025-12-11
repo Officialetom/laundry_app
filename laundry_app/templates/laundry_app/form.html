@@ -1,0 +1,22 @@
+{% extends 'laundry_app/base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.name == 'paid' %}
+            <div class="checkbox-container">
+                {{ field }} {{ field.label_tag }}
+            </div>
+        {% else %}
+            <label>{{ field.label_tag }}</label>
+            {{ field }}
+        {% endif %}
+        {% if field.errors %}
+            <div style="color:red;">{{ field.errors }}</div>
+        {% endif %}
+    {% endfor %}
+    <input type="submit" value="Save">
+</form>
+{% endblock %}

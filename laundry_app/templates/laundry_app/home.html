@@ -1,0 +1,44 @@
+{% extends 'laundry_app/base.html' %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="card">Total Orders: {{ total_orders }}</div>
+    <div class="card">Pending: {{ pending }}</div>
+    <div class="card">In Progress: {{ in_progress }}</div>
+    <div class="card">Completed: {{ completed }}</div>
+    <div class="card">Delivered: {{ delivered }}</div>
+    <div class="card">Paid: {{ total_paid }}</div>
+    <div class="card">Unpaid: {{ total_unpaid }}</div>
+</div>
+
+<h2>Orders</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Customer</th>
+        <th>Item</th>
+        <th>Status</th>
+        <th>Order Date</th>
+        <th>Delivery Date</th>
+        <th>Payment Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.customer_name }}</td>
+        <td>{{ order.item_description }}</td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.order_date }}</td>
+        <td>{{ order.delivery_date }}</td>
+        <td>{{ order.payment_status }}</td>
+        <td>
+            <a class="button" href="{% url 'edit_order' order.id %}">Edit</a>
+            <a class="button" href="{% url 'delete_order' order.id %}">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="8">No orders found.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}
